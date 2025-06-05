@@ -1,5 +1,3 @@
-/* global process */
-
 import React from 'react';
 import { Vitessce } from 'vitessce';
 import { useEffect, useState } from 'react';
@@ -57,12 +55,12 @@ export default function App() {
       })
       .then((jsonData) => {
         const dataUrl = import.meta.env.VITE_DATA_URL;
-        console.log('ENV TEST:', dataUrl);
-        console.log(jsonData);
+        // console.log('ENV TEST:', dataUrl);
+        // console.log(jsonData);
         const replacedConfig = JSON.parse(
           JSON.stringify(jsonData).replace(/__DATA_URL__/g, dataUrl)
         );
-        console.log('Replaced config:', replacedConfig);
+        // console.log('Replaced config:', replacedConfig);
         setConfig(replacedConfig);
       })
       
