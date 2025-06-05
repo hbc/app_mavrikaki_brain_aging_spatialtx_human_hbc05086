@@ -1,0 +1,272 @@
+{
+  "version": "1.0.15",
+  "name": "Example",
+  "description": "Visium Spatial Gene Expression data from 10x Genomics",
+  "initStrategy": "auto",
+  "datasets": [
+    {
+      "uid": "AGHD15",
+      "name": "D15",
+      "files": [
+        {
+          "fileType": "anndata.zarr",
+          "url": "http://10.250.218.4:9000/data/zarrs/AGHD15-ann-s.zarr",
+          "coordinationValues": {
+            "obsType": "spot",
+            "featureType": "gene",
+            "featureValueType": "expression"
+          },
+          "options": {
+            "obsFeatureMatrix": {
+              "path": "X"
+            },
+            "obsLocations": {
+              "path": "obsm/spatial"
+            },
+            "obsSegmentations": {
+              "path": "obsm/segmentations"
+            },
+            "obsEmbedding": [
+              {
+                "path": "obsm/X_umap",
+                "embeddingType": "UMAP"
+              }
+            ],
+            "obsSets": [
+              {
+                "name": "Leiden Cluster",
+                "path": "obs/banksy_cluster_res0.3"
+              }
+            ]
+          }
+        },
+        {
+          "fileType": "image.ome-zarr",
+          "url": "http://10.250.218.4:9000/data/zarrs/AGHD15-img-s.zarr/"
+        }
+      ]
+    },
+    {
+      "uid": "AGHD2",
+      "name": "D2",
+      "files": [
+        {
+          "fileType": "anndata.zarr",
+          "url": "http://10.250.218.4:9000/data/zarrs/AGHD2-ann-s.zarr",
+          "coordinationValues": {
+            "obsType": "spot",
+            "featureType": "gene",
+            "featureValueType": "expression"
+          },
+          "options": {
+            "obsFeatureMatrix": {
+              "path": "X"
+            },
+            "obsLocations": {
+              "path": "obsm/spatial"
+            },
+            "obsSegmentations": {
+              "path": "obsm/segmentations"
+            },
+            "obsEmbedding": [
+              {
+                "path": "obsm/X_umap",
+                "embeddingType": "UMAP"
+              }
+            ],
+            "obsSets": [
+              {
+                "name": "Leiden Cluster",
+                "path": "obs/banksy_cluster_res0.3"
+              }
+            ]
+          }
+        },
+        {
+          "fileType": "image.ome-zarr",
+          "url": "http://10.250.218.4:9000/data/zarrs/AGHD2-img-s.zarr/"
+        }
+      ]
+    }
+  ],
+  "coordinationSpace": {
+        "dataset": {
+            "A": "AGHD15",
+            "B": "AGHD2"
+        },
+        "spatialSegmentationLayer": {
+            "A": {
+                "opacity": 1,
+                "radius": 10,
+                "visible": true,
+                "stroked": true
+            },
+            "B": {
+                "opacity": 1,
+                "radius": 10,
+                "visible": true,
+                "stroked": true
+            }
+        },
+        "spatialImageLayer": {
+          "A": [
+            {
+              "type": "raster",
+              "index": 0,
+              "colormap": null,
+              "transparentColor": null,
+              "opacity": 1,
+              "domainType": "Min/Max",
+              "channels": [
+                {
+                  "selection": { "c": 0 },
+                  "color": [
+                    255,
+                    0,
+                    0
+                  ],
+                  "visible": true,
+                  "slider": [
+                    0,
+                    255
+                  ]
+                },
+                {
+                  "selection": { "c": 1 },
+                  "color": [
+                    0,
+                    255,
+                    0
+                  ],
+                  "visible": true,
+                  "slider": [
+                    0,
+                    255
+                  ]
+                },
+                {
+                  "selection": { "c": 2 },
+                  "color": [
+                    0,
+                    0,
+                    255
+                  ],
+                  "visible": true,
+                  "slider": [
+                    0,
+                    255
+                  ]
+                }
+              ]
+            }
+          ],
+          "B": [
+            {
+              "type": "raster",
+              "index": 0,
+              "colormap": null,
+              "transparentColor": null,
+              "opacity": 1,
+              "domainType": "Min/Max",
+              "channels": [
+                {
+                  "selection": { "c": 0 },
+                  "color": [
+                    255,
+                    0,
+                    0
+                  ],
+                  "visible": true,
+                  "slider": [
+                    0,
+                    255
+                  ]
+                },
+                {
+                  "selection": { "c": 1 },
+                  "color": [
+                    0,
+                    255,
+                    0
+                  ],
+                  "visible": true,
+                  "slider": [
+                    0,
+                    255
+                  ]
+                },
+                {
+                  "selection": { "c": 2 },
+                  "color": [
+                    0,
+                    0,
+                    255
+                  ],
+                  "visible": true,
+                  "slider": [
+                    0,
+                    255
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+    },
+    "layout": [
+        {
+            "component": "featureList",
+            "coordinationScopes": {
+                "dataset": "A"
+            },
+            "x": 9.0,
+            "y": 0,
+            "w": 3.0,
+            "h": 12
+        },
+        {
+            "component": "obsSets",
+            "coordinationScopes": {
+                "dataset": "A"
+            },
+            "x": 6.0,
+            "y": 0,
+            "w": 3.0,
+            "h": 12
+        },
+        {
+            "component": "spatial",
+            "coordinationScopes": {
+                "dataset": "A",
+                "spatialZoom": "A",
+                "spatialTargetX": "A",
+                "spatialTargetY": "A",
+                "spatialSegmentationLayer": "A"
+            },
+            "x": 0.0,
+            "y": 0.0,
+            "w": 6.0,
+            "h": 6.0,
+            "props": {
+                "title": "Day 5, lateral slice 2"
+            }
+        },
+        {
+            "component": "spatial",
+            "coordinationScopes": {
+                "dataset": "B",
+                "spatialZoom": "B",
+                "spatialTargetX": "B",
+                "spatialTargetY": "B",
+                "spatialSegmentationLayer": "B"
+            },
+            "x": 0.0,
+            "y": 6.0,
+            "w": 6.0,
+            "h": 6.0,
+            "props": {
+                "title": "Day 5, medial slice 2"
+            }
+        }
+    ]
+}
