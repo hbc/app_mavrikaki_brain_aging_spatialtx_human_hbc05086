@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+/* global process */
+
+import React from 'react';
 import { Vitessce } from 'vitessce';
-import mydata from './my-view-config-noimg.json';
+import { useEffect, useState } from 'react';
 
 export default function App() {
   const [popupContent, setPopupContent] = useState(null);
@@ -44,6 +46,28 @@ export default function App() {
       </div>
     );
   };
+  const [config, setConfig] = useState(null);
+  useEffect(() => {
+    fetch('/my-view-config-noimg.json')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((jsonData) => {
+        const dataUrl = import.meta.env.VITE_DATA_URL;
+        console.log('ENV TEST:', dataUrl);
+        console.log(jsonData);
+        const replacedConfig = JSON.parse(
+          JSON.stringify(jsonData).replace(/__DATA_URL__/g, dataUrl)
+        );
+        console.log('Replaced config:', replacedConfig);
+        setConfig(replacedConfig);
+      })
+      
+  }, []);
+  
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
       {/* Top Navigation */}
@@ -73,7 +97,10 @@ export default function App() {
       {/* Main App */}
       <main >
       {renderPopup()}
-      <Vitessce config={mydata} theme="light" height='1000' />
+      {/* <pre>{JSON.stringify(config, null, 2)}</pre> */}
+      <Vitessce config={config} theme="light" height='1000' />
+      {/* <h2>Debug Config Output:</h2> */}
+      {/* <pre>{JSON.stringify(config, null, 2)}</pre> */}
       </main>
     </div>
   );
