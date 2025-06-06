@@ -225,6 +225,7 @@
       {
         "component": "layerController",
         "coordinationScopes": {
+          "dataset": "A",
           "obsType": "A",
           "spatialImageLayer": "A",
           "spatialSegmentationLayer": "A"
@@ -251,7 +252,8 @@
               "spatialZoom": "A",
               "spatialTargetX": "A",
               "spatialTargetY": "A",
-              "spatialSegmentationLayer": "A"
+              "spatialSegmentationLayer": "A",
+              "spatialImageLayer": "A"
           },
           "x": 0.0,
           "y": 0.0,
@@ -268,7 +270,8 @@
               "spatialZoom": "B",
               "spatialTargetX": "B",
               "spatialTargetY": "B",
-              "spatialSegmentationLayer": "B"
+              "spatialSegmentationLayer": "A",
+              "spatialImageLayer": "A"
           },
           "x": 0.0,
           "y": 6.0,

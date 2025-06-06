@@ -96,7 +96,7 @@ export default function App() {
       <main >
       {renderPopup()}
       {/* <pre>{JSON.stringify(config, null, 2)}</pre> */}
-      {/* <Vitessce config={config} theme="light" height='1000' /> */}
+      <Vitessce config={config} theme="light" height='1000' />
       {/* <h2>Debug Config Output:</h2> */}
       {/* <pre>{JSON.stringify(config, null, 2)}</pre> */}
       </main>
