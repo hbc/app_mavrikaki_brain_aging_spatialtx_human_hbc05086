@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
-import MainApp from './MainApp'; // <- we'll move your main page code into this
+import MainApp from './MainPage'; // <- we'll move your main page code into this
 
 export default function App() {
   const [user, setUser] = useState(null);
