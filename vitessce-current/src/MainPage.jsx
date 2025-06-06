@@ -65,7 +65,8 @@ export default function MainApp() {
       })
       
   }, []);
-  
+  if (!config) return <div>Loading config...</div>;
+
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
       {/* Top Navigation */}
