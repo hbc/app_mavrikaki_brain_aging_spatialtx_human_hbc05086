@@ -4,29 +4,43 @@ import MainApp from './MainPage';
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true);
   const [showSetPassword, setShowSetPassword] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [passwordSet, setPasswordSet] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
-    // Handle invite/magic link
-    const url = new URL(window.location.href);
-    const access_token = url.searchParams.get('access_token');
-    const refresh_token = url.searchParams.get('refresh_token');
-    if (access_token && refresh_token) {
-      supabase.auth.setSession({ access_token, refresh_token }).then(({ data: { session } }) => {
-        setUser(session?.user || null);
-        setLoading(false);
-        setShowSetPassword(true); // Show set password form after invite login
-        // Optionally, clean up the URL
-        window.history.replaceState({}, document.title, window.location.pathname);
-      });
-      return;
-    }
+    const { hash } = window.location;
+    if (hash && hash.includes("access_token")) {
+      const params = new URLSearchParams(hash.slice(1)); // remove the #
+      const url = new URL(window.location.href);
+      const access_token = params.get('access_token');
+      const refresh_token = params.get('refresh_token');
+      const type = params.get('type');
+      const password = url.searchParams.get('password');
 
+      const fromMagicLink = ['invite', 'recovery'].includes(type);
+      console.log('params:', params);
+      console.log('type:', type);
+      console.log('password:', password);
+      
+      if (access_token && refresh_token) {
+        console.log('Setting session from URL tokens');
+        supabase.auth.setSession({ access_token, refresh_token }).then(({ data: { session } }) => {
+          setUser(session?.user || null);
+          setLoading(false);
+          if (fromMagicLink) {
+            setShowSetPassword(true);
+          }
+          // Clean up URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+        });
+        return;
+    }
+    }
+    // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
       setLoading(false);
@@ -41,18 +55,6 @@ export default function App() {
     };
   }, []);
 
-  const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) alert(error.message);
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-    setShowSetPassword(false);
-    setPasswordSet(false);
-  };
-
   const handleSetPassword = async () => {
     if (!newPassword) return;
     const { error } = await supabase.auth.updateUser({ password: newPassword });
@@ -65,13 +67,25 @@ export default function App() {
     }
   };
 
+  const handleLogin = async () => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) alert(error.message);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setShowSetPassword(false);
+    setPasswordSet(false);
+  };
+
   if (loading) return <p>Loading...</p>;
 
   if (user && showSetPassword && !passwordSet) {
     return (
       <div style={loginWrapperStyle}>
         <div style={loginBoxStyle}>
-          <h2 style={{ marginBottom: '1rem', color: '#333' }}>Set Your Password</h2>
+          <h2>Set Your Password</h2>
           <input
             type="password"
             placeholder="New Password"
@@ -88,7 +102,7 @@ export default function App() {
   return user ? (
     <>
       <div style={{ textAlign: 'right', padding: '1rem' }}>
-        <span style={{ marginRight: '1rem' }}>{user.email}</span>
+        <span>{user.email}</span>
         <button onClick={handleLogout} style={logoutButtonStyle}>Log Out</button>
       </div>
       <MainApp />
@@ -96,19 +110,19 @@ export default function App() {
   ) : (
     <div style={loginWrapperStyle}>
       <div style={loginBoxStyle}>
-        <h2 style={{ marginBottom: '1rem', color: '#333' }}>🔒 Login to Access</h2>
+        <h2>Login</h2>
         <input
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           style={inputStyle}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           style={inputStyle}
         />
         <button onClick={handleLogin} style={loginButtonStyle}>Log In</button>
@@ -117,6 +131,7 @@ export default function App() {
   );
 }
 
+// Styles
 const loginWrapperStyle = {
   display: 'flex',
   justifyContent: 'center',
@@ -161,4 +176,3 @@ const logoutButtonStyle = {
   borderRadius: '4px',
   cursor: 'pointer',
 };
-
