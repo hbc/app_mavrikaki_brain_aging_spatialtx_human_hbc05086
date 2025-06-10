@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
-import MainApp from './MainPage'; // <- we'll move your main page code into this
+import MainApp from './MainPage';
 
 export default function App() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showSetPassword, setShowSetPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [passwordSet, setPasswordSet] = useState(false);
 
   useEffect(() => {
+    // Handle invite/magic link
+    const url = new URL(window.location.href);
+    const access_token = url.searchParams.get('access_token');
+    const refresh_token = url.searchParams.get('refresh_token');
+    if (access_token && refresh_token) {
+      supabase.auth.setSession({ access_token, refresh_token }).then(({ data: { session } }) => {
+        setUser(session?.user || null);
+        setLoading(false);
+        setShowSetPassword(true); // Show set password form after invite login
+        // Optionally, clean up the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      });
+      return;
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
       setLoading(false);
@@ -31,9 +49,41 @@ export default function App() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    setShowSetPassword(false);
+    setPasswordSet(false);
+  };
+
+  const handleSetPassword = async () => {
+    if (!newPassword) return;
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) {
+      alert(error.message);
+    } else {
+      setPasswordSet(true);
+      setShowSetPassword(false);
+      alert('Password set! You can now log in with your email and password next time.');
+    }
   };
 
   if (loading) return <p>Loading...</p>;
+
+  if (user && showSetPassword && !passwordSet) {
+    return (
+      <div style={loginWrapperStyle}>
+        <div style={loginBoxStyle}>
+          <h2 style={{ marginBottom: '1rem', color: '#333' }}>Set Your Password</h2>
+          <input
+            type="password"
+            placeholder="New Password"
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
+            style={inputStyle}
+          />
+          <button onClick={handleSetPassword} style={loginButtonStyle}>Set Password</button>
+        </div>
+      </div>
+    );
+  }
 
   return user ? (
     <>
@@ -45,25 +95,25 @@ export default function App() {
     </>
   ) : (
     <div style={loginWrapperStyle}>
-    <div style={loginBoxStyle}>
-      <h2 style={{ marginBottom: '1rem', color: '#333' }}>🔒 Login to Access</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        style={inputStyle}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        style={inputStyle}
-      />
-      <button onClick={handleLogin} style={loginButtonStyle}>Log In</button>
+      <div style={loginBoxStyle}>
+        <h2 style={{ marginBottom: '1rem', color: '#333' }}>🔒 Login to Access</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputStyle}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={inputStyle}
+        />
+        <button onClick={handleLogin} style={loginButtonStyle}>Log In</button>
+      </div>
     </div>
-  </div>
   );
 }
 
