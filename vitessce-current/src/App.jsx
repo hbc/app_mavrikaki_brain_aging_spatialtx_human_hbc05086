@@ -101,9 +101,27 @@ export default function App() {
 
   return user ? (
     <>
-      <div style={{ textAlign: 'right', padding: '1rem' }}>
-        <span>{user.email}</span>
-        <button onClick={handleLogout} style={logoutButtonStyle}>Log Out</button>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: '#f7f9fc' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
+          {['beth', 'hms', 'hsph', 'lab', 'nih'].map((name, idx) => (
+            <img
+              key={name}
+              src={`/${name}.png`}
+              alt={`icon${idx + 1}`}
+              style={{
+                height: 35,
+                transition: 'transform 0.2s',
+                cursor: 'pointer'
+              }}
+              onMouseOver={e => (e.currentTarget.style.transform = 'scale(2)')}
+              onMouseOut={e => (e.currentTarget.style.transform = 'scale(1)')}
+            />
+          ))}
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <span>{user.email} </span>
+          <button onClick={handleLogout} style={logoutButtonStyle}>Log Out</button>
+        </div>
       </div>
       <MainApp />
     </>

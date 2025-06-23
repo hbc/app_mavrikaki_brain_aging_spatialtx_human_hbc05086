@@ -1,15 +1,15 @@
 {
-  "version": "1.0.15",
+  "version": "1.0.17",
   "name": "MM",
   "description": "Human Brain",
   "datasets": [
       {
-          "uid": "AGHD2",
-          "name": "AGHD2",
+          "uid": "old1",
+          "name": "old",
           "files": [
               {
                   "fileType": "anndata.zarr",
-                  "url": "__DATA_URL__/zarrs/AGHD2-ann-s.zarr",
+                  "url": "__DATA_URL__/zarrs_20250620/AGHD2-ann-s.zarr",
                   "options": {
                       "obsLocations": {
                           "path": "obsm/spatial"
@@ -19,8 +19,16 @@
                       },
                       "obsSets": [
                         {
-                          "name": "Layer clusters",
+                          "name": "Spatial Clusters",
                           "path": "obs/banksy_cluster_res0.3"
+                        },
+                        {
+                          "name": "Cortical Layers",
+                          "path": "obs/cortical_layer"
+                        },
+                        {
+                          "name": "Cell Types",
+                          "path": "obs/full_first_type"
                         }
                       ],
                       "obsFeatureMatrix": {
@@ -30,17 +38,17 @@
               },
               {
                 "fileType": "image.ome-zarr",
-                "url": "__DATA_URL__/zarrs/AGHD2-img-s.zarr"
+                "url": "__DATA_URL__/zarrs_20250620/AGHD2-img-s.zarr"
               }
           ]
       },
       {
-          "uid": "AGHD15",
-          "name": "AGHD15",
+          "uid": "young1",
+          "name": "young",
           "files": [
               {
                   "fileType": "anndata.zarr",
-                  "url": "__DATA_URL__/zarrs/AGHD15-ann-s.zarr",
+                  "url": "__DATA_URL__/zarrs_20250620/AGHD15-ann-s.zarr",
                   "options": {
                       "obsLocations": {
                           "path": "obsm/spatial"
@@ -50,8 +58,16 @@
                       },
                       "obsSets": [
                         {
-                          "name": "Layer clusters",
+                          "name": "Spatial Clusters",
                           "path": "obs/banksy_cluster_res0.3"
+                        },
+                        {
+                          "name": "Cortical Layers",
+                          "path": "obs/cortical_layer"
+                        },
+                        {
+                          "name": "Cell Types",
+                          "path": "obs/full_first_type"
                         }
                       ],
                       "obsFeatureMatrix": {
@@ -61,16 +77,20 @@
               },
               {
                 "fileType": "image.ome-zarr",
-                "url": "__DATA_URL__/zarrs/AGHD15-img-s.zarr"
+                "url": "__DATA_URL__/zarrs_20250620/AGHD15-img-s.zarr"
               }
           ]
       }
   ],
   "coordinationSpace": {
       "dataset": {
-          "A": "AGHD2",
-          "B": "AGHD15"
+          "A": "young1",
+          "B": "old1"
       },
+      "spatialZoom": {
+            "SZA": 1.0,
+            "SZB": 10.0
+        },
       "spatialSegmentationLayer": {
           "A": {
               "opacity": 1,
@@ -186,9 +206,6 @@
             }
           ]
             }]
-    },
-    "featureSelection": {
-      "A": ["MOBP"]
     }
   },
   "layout": [
@@ -249,7 +266,7 @@
           "component": "spatial",
           "coordinationScopes": {
               "dataset": "A",
-              "spatialZoom": "A",
+              "spatialZoom": "SZB",
               "spatialTargetX": "A",
               "spatialTargetY": "A",
               "spatialSegmentationLayer": "A",
@@ -260,14 +277,14 @@
           "w": 6.0,
           "h": 6.0,
           "props": {
-              "title": "AGHD2"
+              "title": "Young Brain 30-years old"
           }
       },
       {
           "component": "spatial",
           "coordinationScopes": {
               "dataset": "B",
-              "spatialZoom": "B",
+              "spatialZoom": "SZA",
               "spatialTargetX": "B",
               "spatialTargetY": "B",
               "spatialSegmentationLayer": "A",
@@ -278,7 +295,7 @@
           "w": 6.0,
           "h": 6.0,
           "props": {
-              "title": "AGHD15"
+              "title": "Old Brain 71-years old"
           }
       }
   ],
