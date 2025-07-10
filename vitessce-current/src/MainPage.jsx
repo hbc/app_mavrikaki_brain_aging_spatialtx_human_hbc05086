@@ -89,7 +89,9 @@ and cell types. <br/>
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
       <nav style={navStyle}>
-        <div>🔬 Aging-related Spatial Transcriptome</div>
+        <div>Aging-related Transcriptomic Changes
+with Spatial and Cell Type-Specific Resolution
+in the Human Brain</div>
         <div>
           <button onClick={() => handleNavClick('home')} style={navLinkStyle}>Home</button>
           <button onClick={() => handleNavClick('about')} style={navLinkStyle}>About</button>
@@ -97,9 +99,9 @@ and cell types. <br/>
       </nav>
 
       {/* Title */}
-      <header style={headerStyle}>
+      {/* <header style={headerStyle}>
         <h1 style={{ margin: 0 }}>Single-cell Spatial Data Viewer</h1>
-      </header>
+      </header> */}
 
       {/* Main App */}
       <main>
