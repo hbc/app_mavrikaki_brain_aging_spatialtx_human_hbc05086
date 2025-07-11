@@ -9,7 +9,7 @@
           "files": [
               {
                   "fileType": "anndata.zarr",
-                  "url": "__DATA_URL__/zarrs_20250710/AGHD4-ann-s.zarr",
+                  "url": "__DATA_URL__/zarrs_20250710/old-ann-s.zarr",
                   "options": {
                       "obsLocations": {
                           "path": "obsm/spatial"
@@ -38,7 +38,7 @@
               },
               {
                 "fileType": "image.ome-zarr",
-                "url": "__DATA_URL__/zarrs_20250710/AGHD4-img-s.zarr"
+                "url": "__DATA_URL__/zarrs_20250710/old-img-s.zarr"
               }
           ]
       },
@@ -48,7 +48,7 @@
           "files": [
               {
                   "fileType": "anndata.zarr",
-                  "url": "__DATA_URL__/zarrs_20250710/AGHD15-ann-s.zarr",
+                  "url": "__DATA_URL__/zarrs_20250710/young-ann-s.zarr",
                   "options": {
                       "obsLocations": {
                           "path": "obsm/spatial"
@@ -77,7 +77,7 @@
               },
               {
                 "fileType": "image.ome-zarr",
-                "url": "__DATA_URL__/zarrs_20250710/AGHD15-img-s.zarr"
+                "url": "__DATA_URL__/zarrs_20250710/young-img-s.zarr"
               }
           ]
       }
@@ -277,7 +277,7 @@
           "w": 6.0,
           "h": 6.0,
           "props": {
-              "title": "Young Brain 30-years old"
+              "title": "Young Brain 30 years old"
           }
       },
       {
@@ -295,7 +295,7 @@
           "w": 6.0,
           "h": 6.0,
           "props": {
-              "title": "Old Brain 71-years old"
+              "title": "Old Brain 89+ years old"
           }
       }
   ],
