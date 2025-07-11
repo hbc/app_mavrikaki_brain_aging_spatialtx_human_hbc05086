@@ -19,8 +19,27 @@
     header {
       text-align: center;
       padding: 2rem;
-      background-color: #607d8b;
+      background: url('./public/bg2.png') no-repeat center center;
+      background-size: cover;
       color: white;
+      position: relative;
+    }
+    
+    /* Add overlay to ensure text readability */
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(96, 125, 139, 0.8); /* semi-transparent version of #607d8b */
+      z-index: 1;
+    }
+
+    header h1 {
+      position: relative;
+      z-index: 2; /* Ensure text stays above the overlay */
     }
 
     header h1 {
