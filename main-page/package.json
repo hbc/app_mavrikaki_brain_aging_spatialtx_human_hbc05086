@@ -1,0 +1,21 @@
+{
+  "name": "brain-aging-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page for aging-related transcriptomic changes project",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve -s . -l 3000",
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "preview": "npx vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.4.0"
+  },
+  "type": "module"
+}

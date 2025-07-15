@@ -2,3 +2,6 @@
 vitessce-back/**
 data/**
 vitessce-current/**
+main-page/node_modules/**
+main-page/package-lock.json
+main-page/.env
