@@ -19,8 +19,8 @@ export default function MainPage() {
         </section>
         <section className="hero">
           <h2>Spatial Transcriptomics Gene Expression App</h2>
-          <p>Stay tuned for more tools and resources related to aging-related transcriptomic changes.</p>
-          <a href="https://hcbc.connect.hms.harvard.edu/content/7e80c0c1-a5e8-4b46-8b92-6cbc69b2ba3e" target="_blank" rel="noopener noreferrer">Coming Soon</a>
+          <p>More tools and resources related to aging-related transcriptomic changes.</p>
+          <a href="https://hcbc.connect.hms.harvard.edu/content/7e80c0c1-a5e8-4b46-8b92-6cbc69b2ba3e" target="_blank" rel="noopener noreferrer">Go to App</a>
         </section>
       </main>
       <div className="logos">
